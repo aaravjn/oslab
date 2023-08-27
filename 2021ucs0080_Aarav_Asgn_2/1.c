@@ -20,7 +20,7 @@ int main() {
                 printf("Child 3 -> process id : %d parent pid %d \n", getpid(), getppid());
             }
             else {
-                sleep(3);
+                sleep(1);
                 printf("Parent -> process id : %d \n", getpid());
             }
         }

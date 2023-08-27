@@ -14,7 +14,7 @@ void* fileCreation() {
 }
 
 void* updateFile() {
-    sleep(3);
+    sleep(2);
 
     int fd = open("mythread.txt", O_WRONLY);
     char s[46] = "Hello, I am writing in the file created by you";

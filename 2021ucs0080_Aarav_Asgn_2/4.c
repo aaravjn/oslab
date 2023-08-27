@@ -13,7 +13,7 @@ int main() {
         printf("(D) Parent ID of Child P1: %d \n", getppid());
     }
     else {
-        printf("(A) Process ID of Child (P1): %d \n", getpid());
+        printf("(A) Process ID of Parent (P1): %d \n", getpid());
         int cpid = wait(NULL);
         printf("(B) ID of P's Child (P1): %d \n", cpid);
     }

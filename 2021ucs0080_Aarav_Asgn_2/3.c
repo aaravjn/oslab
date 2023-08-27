@@ -10,10 +10,10 @@ int main() {
         int p2 = fork();
 
         if(p2 == 0) {
-            printf("I am child 1 and I have got completed \n");
+            printf("I am child 1 and I have completed \n");
         }
         else {
-            printf("I am child 2 and I have got completed \n");
+            printf("I am child 2 and I have completed \n");
         }
     }
     else {
