@@ -4,8 +4,9 @@ using namespace std;
 const int SHIFT_TIME = 20;
 int curr_shift_timer = 0;
 
+
 // Implementing the scheduling algorithm
-void scheduler(vector<vector<int>> &jobs, vector<queue<vector<int>>> &jobQueue, vector<int> &timeQuanta, vector<int> &currTime, int &i, int &timer, int n) {
+void scheduler(vector<vector<int>> &jobs, vector<queue<vector<int>>> &jobQueue, vector<int> &timeQuanta, vector<int> &currTime, int &i, int &timer, int &prevQueue, int n) {
     while(i < n and timer == jobs[i][0]) {
         cout<<"timer: "<<timer<<"-----";
         cout<<"Job with ID: "<<jobs[i][2]<<" entered the ready stage"<<endl;
@@ -24,14 +25,20 @@ void scheduler(vector<vector<int>> &jobs, vector<queue<vector<int>>> &jobQueue, 
         cout<<"Shifted all the jobs in the queue with highest priority"<<endl;
 
         curr_shift_timer = 0;
+        currTime[0] = 0;
+        currTime[1] = 0;
+        currTime[2] = 0;
+        prevQueue = -1;
     }
 
-    if(!jobQueue[0].empty()) {
+    if(!jobQueue[0].empty() and (prevQueue == -1 or prevQueue == 0)) {
+        prevQueue = 0;
         if(--jobQueue[0].front()[1] == 0) {
             cout<<"timer: "<<timer<<"-----";
             cout<<"Job with ID: "<<jobQueue[0].front()[2]<<" was completed in Q1"<<endl;
 
             jobQueue[0].pop();
+            prevQueue = -1;
         }
         else if(++currTime[0] == timeQuanta[0]) {
             cout<<"timer: "<<timer<<"-----";
@@ -41,14 +48,17 @@ void scheduler(vector<vector<int>> &jobs, vector<queue<vector<int>>> &jobQueue, 
             jobQueue[0].pop();
             jobQueue[1].push(job);
             currTime[0] = 0;
+            prevQueue = -1;
         }
     }
-    else if(!jobQueue[1].empty()) {
+    else if(!jobQueue[1].empty() and (prevQueue == -1 or prevQueue == 1)) {
+        prevQueue = 1;
         if(--jobQueue[1].front()[1] == 0) {
             cout<<"timer: "<<timer<<"-----";
             cout<<"Job with ID: "<<jobQueue[1].front()[2]<<" was completed in Q2"<<endl;
 
             jobQueue[1].pop();
+            prevQueue = -1;
         }
         else if(++currTime[1] == timeQuanta[1]) {
             cout<<"timer: "<<timer<<"-----";
@@ -58,14 +68,17 @@ void scheduler(vector<vector<int>> &jobs, vector<queue<vector<int>>> &jobQueue, 
             jobQueue[1].pop();
             jobQueue[2].push(job);
             currTime[1] = 0;
+            prevQueue = -1;
         }
     }
-    else if(!jobQueue[2].empty()) {
+    else if(!jobQueue[2].empty() and (prevQueue == -1 or prevQueue == 2)) {
+        prevQueue = 2;
         if(--jobQueue[2].front()[1] == 0) {
             cout<<"timer: "<<timer<<"-----";
             cout<<"Job with ID: "<<jobQueue[2].front()[2]<<" was completed in Q3"<<endl;
 
             jobQueue[2].pop();
+            prevQueue = -1;
         }
         else if(++currTime[2] == timeQuanta[2]) {
             cout<<"timer: "<<timer<<"-----";
@@ -75,6 +88,7 @@ void scheduler(vector<vector<int>> &jobs, vector<queue<vector<int>>> &jobQueue, 
             jobQueue[2].pop();
             jobQueue[2].push(job);
             currTime[2] = 0;
+            prevQueue = -1;
         }
     }
 }
@@ -87,20 +101,21 @@ int main() {
         3rd integer represents the process ID of the job.
     */
 
-    vector<vector<int>> jobs{{1, 10, 1}, {2, 2, 2}, {2, 4, 3}, {4, 9, 4}, {5, 1, 5}};
+    vector<vector<int>> jobs{{1, 10, 1}, {2, 20, 2}, {2, 4, 3}, {4, 90, 4}, {24, 1, 5}};
     
     vector<queue<vector<int>>> jobQueue(3);
     vector<int> timeQuanta{2, 5, 10};
     vector<int> currTime(3);
+    int prevQueue = -1;
 
     int n = jobs.size();
     
     int timer = 0;
     int i = 0;
-    while(i < n or !jobQueue[0].empty() or !jobQueue[1].empty() or !jobQueue[2].empty()) {
+    while((i < n or !jobQueue[0].empty() or !jobQueue[1].empty() or !jobQueue[2].empty())) {
         timer++;
         curr_shift_timer++;
-        scheduler(jobs, jobQueue, timeQuanta, currTime, i, timer, n);
+        scheduler(jobs, jobQueue, timeQuanta, currTime, i, timer, prevQueue, n);
     }
 
     return 0;
