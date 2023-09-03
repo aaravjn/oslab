@@ -1,5 +1,7 @@
+// LOTTERY SCHEDULING
+
+
 #include <bits/stdc++.h>
-// #include <cstdlib
 
 using namespace std;
 const int TIME_QUANTUM = 4;
