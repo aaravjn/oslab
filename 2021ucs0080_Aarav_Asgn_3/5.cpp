@@ -48,9 +48,19 @@ int main() {
         is the arrival time of the job. The 2nd integer is the time required to complete the job. The
         3rd integer represents the process ID of the job.
     */
+    // {{1, 10, 1}, {2, 2, 2}, {2, 4, 3}, {4, 9, 4}, {5, 1, 5}}
+    
+    cout<<"Input the number of Jobs: ";
+    int n; cin>>n;
+    cout<<endl;
 
-    vector<vector<int>> jobs{{1, 10, 1}, {2, 2, 2}, {2, 4, 3}, {4, 9, 4}, {5, 1, 5}};
-    int n = jobs.size();
+    cout<<"Input the jobs\n";
+    vector<vector<int>> jobs;
+    for(int i = 0;i < n;i++) {
+        int arrival_time, process_time, process_id;
+        cin>>arrival_time>>process_time>>process_id;
+        jobs.push_back({arrival_time, process_time, process_id});
+    }
 
     vector<vector<int>> processes;
 
