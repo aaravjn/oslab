@@ -1,7 +1,1 @@
-python -c 'import numpy; print(numpy.__version__)'
-if [ $? -eq 0 ]; then
-    echo "Numpy is already installed"
-else
-    echo "Numpy is not installed, initializing install"
-    pip install numpy
-fi
+echo "The tee command is normally used to split Hello World" > outputfile.txt
