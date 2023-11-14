@@ -1,0 +1,15 @@
+0
+Process 0 is allocated memory from 100 to 199
+Process 1 is allocated memory from 200 to 299
+Process 2 is allocated memory from 400 to 599
+Process 3 couldn't be allocated memory
+1
+Process 0 has completed it's execution
+2
+3
+Process 1 has completed it's execution
+4
+5
+6
+7
+Process 2 has completed it's execution
